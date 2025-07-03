@@ -56,12 +56,13 @@ podman stop nethack
 podman rm nethack
 
 # Build the dgamelaunch image
-podman build -t nethack-k8s:latest .
+podman build -f Dockerfile.arm64 -t nethack-dgamelaunch:arm64 .
 
 podman run -d \
   --name nethack \
   -p 9000:22 \
-  localhost/nethack-k8s:latest
+  localhost/nethack-dgamelaunch:arm64
+  
 ```
   -v nethack-data:/opt/nethack \
   -v nethack-ssh:/home/nethack/.ssh \

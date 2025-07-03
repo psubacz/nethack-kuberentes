@@ -55,6 +55,12 @@ passwd -d nethack 2>/dev/null || true
 # Ensure dgamelaunch directories exist and have correct permissions
 mkdir -p /opt/dgl/chroot/dgldir/{inprogress-nh343,userdata,ttyrec}
 
+# Ensure database is properly initialized (safety check)
+if [ -f /opt/dgl/init-db.sh ]; then
+    echo "Running database initialization check..."
+    /opt/dgl/init-db.sh
+fi
+
 # Ensure menu files exist in chroot
 cp /opt/dgl/configs/dgl_menu_main_anon.txt /opt/dgl/chroot/dgl_menu_main_anon.txt 2>/dev/null || true
 cp /opt/dgl/configs/dgl_menu_main_user.txt /opt/dgl/chroot/dgl_menu_main_user.txt 2>/dev/null || true

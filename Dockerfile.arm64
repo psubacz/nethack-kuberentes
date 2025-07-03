@@ -186,11 +186,22 @@ RUN echo "Setting up ARM64 chroot environment..." \
     && ls -la /opt/dgl/chroot/usr/share/terminfo/x/xterm 2>/dev/null || echo "xterm terminfo setup from /lib/terminfo" \
     && echo "ARM64 chroot setup complete"
 
+# Initialize SQLite database with proper schema
+COPY configs/init-db.sh /opt/dgl/init-db.sh
+RUN chmod +x /opt/dgl/init-db.sh \
+    && /opt/dgl/init-db.sh
+
 # Set up permissions for dgamelaunch
-RUN chown -R nethack:games /opt/dgl/chroot/dgldir \
+# Add nethack user to the users group (gid 100) to match dgamelaunch.conf shed_gid
+RUN usermod -a -G users nethack \
+    && chown -R nethack:games /opt/dgl/chroot/dgldir \
     && chown -R nethack:games /opt/dgl/chroot/nh343/var \
     && chmod -R 755 /opt/dgl/chroot/dgldir \
-    && chmod -R 755 /opt/dgl/chroot/nh343/var
+    && chmod -R 755 /opt/dgl/chroot/nh343/var \
+    && echo "Creating and setting up database file permissions..." \
+    && touch /opt/dgl/chroot/dgldir/dgl-login.db \
+    && chown nethack:users /opt/dgl/chroot/dgldir/dgl-login.db \
+    && chmod 664 /opt/dgl/chroot/dgldir/dgl-login.db
 
 # Switch to root for final setup
 USER root
