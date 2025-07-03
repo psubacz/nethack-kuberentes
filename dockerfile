@@ -59,11 +59,12 @@ RUN make install
 # Final runtime stage
 FROM ubuntu:22.04
 
-# Install runtime dependencies
+# Install runtime dependencies - we dont need gdb as its for build time logging. 
 RUN apt-get update && apt-get install -y \
     libncurses5 \
     libncursesw5 \
     lua5.4 \
+    # gdb \ 
     && rm -rf /var/lib/apt/lists/*
 
 # Copy NetHack installation from builder
