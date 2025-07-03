@@ -1,0 +1,10 @@
+$ATTR(14)                    Welcome to NetHack Container Server!$ATTR()
+
+$SERVERID
+
+         l) Login         
+         r) Register      
+         w) Watch games in progress
+         q) Quit          
+
+=> 

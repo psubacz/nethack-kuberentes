@@ -1,0 +1,30 @@
+╔════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                ║
+║                       Welcome to NetHack Container Server                     ║
+║                                                                                ║
+║  Server: $SERVERID                                                            ║
+║  Current time: $DATETIME                                                      ║
+║  Last updated: $MOTDTIME                                                      ║
+║                                                                                ║
+║  NetHack is a dungeon exploration game that runs in your terminal.           ║
+║  You can play solo or watch other players in real-time.                      ║
+║                                                                                ║
+║  Commands:                                                                     ║
+║    (l)ogin     - Log in with existing account                                 ║
+║    (r)egister  - Create new account                                           ║
+║    (w)atch     - Watch games in progress                                      ║
+║    (q)uit      - Exit                                                         ║
+║                                                                                ║
+║  Once logged in:                                                              ║
+║    (p)lay      - Start playing NetHack                                        ║
+║    (w)atch     - Watch other players                                          ║
+║    (o)ptions   - Edit your configuration file                                 ║
+║    (c)hange    - Change your password                                         ║
+║    (e)mail     - Change your email                                            ║
+║    (q)uit      - Exit                                                         ║
+║                                                                                ║
+║  Happy hacking!                                                               ║
+║                                                                                ║
+╚════════════════════════════════════════════════════════════════════════════════╝
+
+What would you like to do? 

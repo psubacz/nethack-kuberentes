@@ -1,0 +1,8 @@
+Watching Menu Help
+
+Commands:
+  Arrow keys - Navigate game list
+  Enter      - Watch selected game
+  q          - Return to main menu
+  
+Press any key to return.

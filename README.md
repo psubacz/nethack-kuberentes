@@ -41,28 +41,38 @@ git submodule update --init --recursive
 
 In the `configs` directory, there are handful of configs that should be set prior to build. By defualt they are setup for development purposes only.
 
+3. generate keys
+
+```bash
+ssh-keygen -t ed25519 -f nethack_sshkey -N ""
+```
+
 3. build
 
 ```bash
 # Optional - Stop and remove the old container
-podman stop nethack-dgamelaunch
-podman rm nethack-dgamelaunch
+podman stop nethack
+podman rm nethack
 
 # Build the dgamelaunch image
 podman build -t nethack-k8s:latest .
-```
 
-4. Run
-
-```bash
 podman run -d \
-  --name nethack-dgamelaunch \
-  -p 2222:22 \
+  --name nethack \
+  -p 9000:22 \
+  localhost/nethack-k8s:latest
+```
   -v nethack-data:/opt/nethack \
   -v nethack-ssh:/home/nethack/.ssh \
   -v /dev/null:/opt/nethack/dev/null:ro \
   -v /dev/zero:/opt/nethack/dev/zero:ro \
-  localhost/dgamelaunch-ssh:latest
+4. Run
+
+```bash
+podman run -d \
+  --name nethack \
+  -p 9000:22 \
+  localhost/nethack-k8s:latest
 ```
 
 Quick explaination of the options for the uninitiated
@@ -78,5 +88,5 @@ Quick explaination of the options for the uninitiated
 5. Play
 
 ```bash
-ssh -p 2222 nethack@localhost
+ssh -p 9000 nethack@localhost
 ```

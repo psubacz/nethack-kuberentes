@@ -1,0 +1,11 @@
+$ATTR(14)                    Watching Games Help$ATTR()
+
+Watch Menu Commands:
+  Arrow keys, j/k, or 2/8 ........ select a game
+  Page Up/Page Down or -/+ ........ go to previous/next page  
+  Enter ........................... watch selected game
+  o ............................... change sorting options
+  r ............................... refresh/repaint screen
+  q, Space ........................ return to main menu
+
+Press any key to return to the main menu.

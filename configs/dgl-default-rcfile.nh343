@@ -1,0 +1,46 @@
+# Default NetHack configuration file
+# This file will be copied to new user accounts
+
+# Set display options
+OPTIONS=color,!time,showexp,showscore,news,fruit:slime mold
+OPTIONS=hilite_pet,lit_corridor,dark_room
+OPTIONS=autodig,autopickup,pickup_types:$"?!=/(
+OPTIONS=packorder:")[%?+/=!(*0_`
+
+# Message window options  
+OPTIONS=msg_window:combination,msghistory:200
+
+# Interface options
+OPTIONS=number_pad:0,rest_on_space
+OPTIONS=!legacy,!news,verbose
+
+# Autopickup exceptions
+AUTOPICKUP_EXCEPTION=">cursed"
+AUTOPICKUP_EXCEPTION=">worn"
+AUTOPICKUP_EXCEPTION="<blessed"
+
+# Key bindings
+BIND=^A:annotate
+BIND=M-d:dip
+BIND=M-f:force
+BIND=M-i:invoke
+BIND=M-j:jump
+BIND=M-l:loot
+BIND=M-m:monster
+BIND=M-n:name
+BIND=M-o:offer
+BIND=M-p:pray
+BIND=M-r:rub
+BIND=M-s:sit
+BIND=M-t:turn
+BIND=M-u:untrap
+BIND=M-w:wipe
+
+# Status line options
+OPTIONS=hilite_status:hitpoints-max/bright-green/normal
+OPTIONS=hilite_status:hitpoints/100%/bright-green/normal
+OPTIONS=hilite_status:hitpoints/<100%/yellow/normal  
+OPTIONS=hilite_status:hitpoints/<66%/orange/normal
+OPTIONS=hilite_status:hitpoints/<50%/red/normal
+OPTIONS=hilite_status:hitpoints/<33%/bright-red/normal
+OPTIONS=hilite_status:hitpoints/<15%/inverse+bright-red/normal

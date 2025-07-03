@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Debug wrapper for dgamelaunch
+echo "=== dgamelaunch wrapper starting ===" >&2
+echo "User: $(whoami)" >&2
+echo "PWD: $(pwd)" >&2
+echo "TERM: $TERM" >&2
+echo "Environment:" >&2
+env | grep -E "(TERM|LANG|LC_)" >&2
+
+echo "Checking dgamelaunch binary:" >&2
+ls -la /usr/local/sbin/dgamelaunch >&2
+
+echo "Checking config file:" >&2
+ls -la /opt/dgl/dgamelaunch.conf >&2
+
+echo "Checking chroot directory:" >&2
+ls -la /opt/dgl/chroot/ >&2
+
+echo "Checking menu files:" >&2
+ls -la /opt/dgl/chroot/dgl_menu_*.txt >&2
+ls -la /opt/dgl/chroot/dgl-banner >&2
+ls -la /opt/dgl/chroot/dgl-default-rcfile.nh343 >&2
+
+echo "Checking dgamelaunch directories:" >&2
+ls -la /opt/dgl/chroot/dgldir/ >&2
+
+echo "Attempting to run dgamelaunch..." >&2
+exec /usr/local/sbin/dgamelaunch -f /opt/dgl/dgamelaunch.conf 2>&1

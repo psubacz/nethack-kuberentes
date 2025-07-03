@@ -1,0 +1,14 @@
+$ATTR(14)                    Welcome to NetHack Container Server!$ATTR()
+
+$SERVERID
+
+         Logged in as: $USERNAME
+
+         p) Play NetHack 3.4.3
+         o) Edit options 
+         w) Watch games in progress
+         c) Change password
+         e) Change email
+         q) Quit
+
+=> 

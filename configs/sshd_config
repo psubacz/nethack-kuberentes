@@ -1,0 +1,64 @@
+# SSH Configuration for dgamelaunch Game Server
+# Simplified configuration for container deployment
+
+# Network Configuration
+Port 22
+ListenAddress 0.0.0.0
+AddressFamily any
+
+# Protocol and Host Keys
+Protocol 2
+HostKey /etc/ssh/ssh_host_ed25519_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
+
+# Authentication - Allow anonymous access
+PasswordAuthentication yes
+PermitEmptyPasswords yes
+PubkeyAuthentication no
+ChallengeResponseAuthentication no
+KerberosAuthentication no
+GSSAPIAuthentication no
+HostbasedAuthentication no
+UsePAM no
+
+# Security settings
+StrictModes no
+PermitRootLogin no
+
+# Connection Management
+MaxAuthTries 3
+LoginGraceTime 30
+MaxSessions 100
+MaxStartups 50:30:100
+
+# Session settings
+ClientAliveInterval 600
+ClientAliveCountMax 3
+TCPKeepAlive yes
+
+# Disable forwarding
+AllowAgentForwarding no
+AllowTcpForwarding no
+AllowStreamLocalForwarding no
+X11Forwarding no
+PermitTunnel no
+GatewayPorts no
+PermitUserEnvironment no
+
+# Performance
+UseDNS no
+Compression delayed
+
+# Logging
+SyslogFacility AUTH
+LogLevel INFO
+PrintMotd no
+PrintLastLog no
+
+# Game server specific
+AllowUsers nethack
+
+# Force all connections to dgamelaunch
+Match User nethack
+    ForceCommand /usr/local/sbin/dgamelaunch
+    AcceptEnv TERM LANG LC_*
