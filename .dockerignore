@@ -1,0 +1,31 @@
+# Git files
+.git
+.gitignore
+
+# Documentation that's not needed in container
+README
+Bugs
+TODO
+Changelog
+
+# Build artifacts (will be built in container)
+*.o
+.depend
+dgamelaunch
+ee
+virus
+y.tab.*
+lex.yy.c
+config.h
+config.log
+config.status
+Makefile
+autom4te.cache
+
+# macOS files
+.DS_Store
+
+# Editor files
+*~
+*.swp
+*.swo
