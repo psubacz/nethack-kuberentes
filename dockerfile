@@ -25,7 +25,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /usr/src/dgamelaunch
 
 # Copy source code
-COPY . .
+COPY dgamelaunch .
 
 # Build dgamelaunch with modern configuration
 # Based on current NetHack wiki recommendations
@@ -45,8 +45,7 @@ FROM debian:bookworm-slim AS runtime
 
 # Set maintainer info
 LABEL maintainer="caboose"
-LABEL description="dgamelaunch - Modern network game launcher with SSH access"
-LABEL version="git-latest"
+LABEL description=" a contianerized dgamelaunch's for NetHack with SSH access"
 
 # Install only runtime dependencies
 RUN apt-get update && \
@@ -77,7 +76,6 @@ COPY --from=builder /usr/src/dgamelaunch/virus /usr/local/bin/
 # Copy configuration examples and chroot setup script
 COPY --from=builder /usr/src/dgamelaunch/examples/ /usr/local/share/dgamelaunch/examples/
 COPY --from=builder /usr/src/dgamelaunch/dgl-create-chroot /usr/local/bin/
-COPY --from=builder /usr/src/dgamelaunch/dgl-create-chroot.conf.example.* /usr/local/share/dgamelaunch/
 COPY --from=builder /usr/src/dgamelaunch/dgamelaunch.8 /usr/local/share/man/man8/
 
 # Create the standard chroot structure based on current practices
@@ -117,18 +115,18 @@ RUN cp -a /usr/share/terminfo/x/xterm* /opt/nethack/usr/share/terminfo/ 2>/dev/n
     && mkdir -p /opt/nethack/usr/share/terminfo/s \
     && mkdir -p /opt/nethack/usr/share/terminfo/l
 
-# Create device nodes for chroot
-RUN mknod /opt/nethack/dev/null c 1 3 || true \
-    && mknod /opt/nethack/dev/zero c 1 5 || true \
-    && chmod 666 /opt/nethack/dev/null /opt/nethack/dev/zero
+# Create device nodes for chroot (skip if not privileged)
+RUN mknod /opt/nethack/dev/null c 1 3 2>/dev/null || true \
+    && mknod /opt/nethack/dev/zero c 1 5 2>/dev/null || true \
+    && chmod 666 /opt/nethack/dev/null /opt/nethack/dev/zero 2>/dev/null || true
 
-# Add configuration files from local docker-config directory
-ADD docker-config/sshd_config /etc/ssh/sshd_config
-ADD docker-config/dgamelaunch.conf /opt/nethack/etc/dgamelaunch.conf
-ADD docker-config/banner.txt /opt/nethack/dgldir/banner.txt
-ADD docker-config/watchhelp.txt /opt/nethack/dgldir/watchhelp.txt
-ADD --chmod=755 docker-config/start-dgamelaunch.sh /usr/local/bin/start-dgamelaunch.sh
-ADD --chmod=755 docker-config/healthcheck.sh /usr/local/bin/healthcheck.sh
+# Add configuration files from local configs directory
+ADD configs/sshd_config /etc/ssh/sshd_config
+ADD configs/dgamelaunch.conf /opt/nethack/etc/dgamelaunch.conf
+ADD configs/banner.txt /opt/nethack/dgldir/banner.txt
+ADD configs/watchhelp.txt /opt/nethack/dgldir/watchhelp.txt
+ADD --chmod=755 configs/start-dgamelaunch.sh /usr/local/bin/start-dgamelaunch.sh
+ADD --chmod=755 configs/healthcheck.sh /usr/local/bin/healthcheck.sh
 
 # Set proper permissions
 RUN chown -R dgamelaunch:dgamelaunch /opt/nethack/dgldir \
