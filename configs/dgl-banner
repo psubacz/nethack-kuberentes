@@ -1,14 +1,1 @@
-$ATTR(14)===============================================================================$ATTR()
-$ATTR(14)                          NetHack Container Server$ATTR()
-$ATTR(14)===============================================================================$ATTR()
-
-Last updated: $MOTDTIME                                          $DATETIME
-
-Welcome to the NetHack Container Server!
-
-This server runs NetHack 3.4.3 in a containerized environment.
-All games are recorded and can be watched by other players.
-
-For help or questions, please contact the server administrator.
-
-$ATTR(14)===============================================================================$ATTR()
+## $SERVERID
