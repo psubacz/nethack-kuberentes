@@ -1,0 +1,4 @@
+[submodule "dgamelaunch"]
+	path = dgamelaunch
+	url = https://github.com/paxed/dgamelaunch.git
+	branch = master
