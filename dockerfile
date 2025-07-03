@@ -58,36 +58,54 @@ RUN make fetch-Lua
 RUN make all
 RUN make install
 
-# Build dgamelaunch
-WORKDIR /build/dgamelaunch
-RUN ./autogen.sh --enable-sqlite --with-config-file=/opt/dgl/dgamelaunch.conf
-RUN make
-
-# Switch to root for installation
-USER root
-RUN make install
+# Note: dgamelaunch will be built in runtime stage
 
 # Final runtime stage
 FROM ubuntu:22.04
 
-# Install runtime dependencies
+# Install runtime dependencies including build tools for dgamelaunch
 RUN apt-get update && apt-get install -y \
     libncurses5 \
     libncursesw5 \
     lua5.4 \
     sqlite3 \
     openssh-server \
+    build-essential \
+    gcc \
+    g++ \
+    make \
+    autoconf \
+    automake \
+    libtool \
+    pkg-config \
+    bison \
+    flex \
+    libncurses5-dev \
+    libncursesw5-dev \
+    zlib1g-dev \
+    libsqlite3-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy NetHack and dgamelaunch installations from builder
+# Copy NetHack installation from builder
 COPY --from=builder /home/nethack/nh/install /home/nethack/nh/install
-COPY --from=builder /usr/local/sbin/dgamelaunch /usr/local/sbin/dgamelaunch
+
+# Copy dgamelaunch source and configs for runtime build
+COPY dgamelaunch /opt/dgl/dgamelaunch-src
 COPY dgamelaunch/examples /opt/dgl/examples
 COPY configs /opt/dgl/configs
+
+# Copy dgamelaunch.conf to the expected location before building
+RUN cp /opt/dgl/configs/dgamelaunch.conf /opt/dgl/dgamelaunch.conf
 
 # Create nethack user and add to games group (matching builder)
 RUN useradd -m -s /bin/bash nethack \
     && usermod -a -G games nethack
+
+# Build dgamelaunch in runtime
+WORKDIR /opt/dgl/dgamelaunch-src
+RUN ./autogen.sh --enable-sqlite --with-config-file=/opt/dgl/dgamelaunch.conf
+RUN make
+RUN make install
 
 # Create dgamelaunch chroot environment
 RUN rm -rf /opt/dgl/chroot 2>/dev/null || true \
