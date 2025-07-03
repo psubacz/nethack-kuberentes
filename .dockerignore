@@ -1,35 +1,46 @@
 # Git files
-.git
+.git/
 .gitignore
 .gitmodules
 
-# Documentation that's not needed in container (from submodule)
-dgamelaunch/README
-dgamelaunch/Bugs
-dgamelaunch/TODO
-dgamelaunch/Changelog
+# Documentation
+README.md
+*.md
 
-# Build artifacts (will be built in container)
-dgamelaunch/*.o
-dgamelaunch/.depend
-dgamelaunch/dgamelaunch
-dgamelaunch/ee
-dgamelaunch/virus
-dgamelaunch/y.tab.*
-dgamelaunch/lex.yy.c
-dgamelaunch/config.h
-dgamelaunch/config.log
-dgamelaunch/config.status
-dgamelaunch/Makefile
-dgamelaunch/autom4te.cache
+# Scripts (except those needed in container)
+build-podman.sh
+run-podman.sh
+cleanup.sh
 
-# macOS files
+# Temporary files
+*.tmp
+*.log
 .DS_Store
+Thumbs.db
 
-# Editor files
-*~
+# IDE files
+.vscode/
+.idea/
 *.swp
 *.swo
+*~
 
-# Scripts not needed in container
-setup-submodule.sh
+# OS files
+.DS_Store
+Thumbs.db
+
+# Docker files
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Kubernetes files
+*.yaml
+*.yml
+k8s/
+manifests/
+
+# Build artifacts
+target/
+dist/
+build/

@@ -2,3 +2,9 @@
 	path = dgamelaunch
 	url = https://github.com/paxed/dgamelaunch.git
 	branch = master
+
+[submodule "NetHack"]
+	path = NetHack
+	url = https://github.com/NetHack/NetHack.git
+	branch = NetHack-3.7
+
